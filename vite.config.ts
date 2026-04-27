@@ -13,7 +13,8 @@ export default defineConfig(({mode}) => {
       tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'pwa-icon.svg'],
+        injectRegister: 'auto',
+        includeAssets: ['pwa-icon.svg'],
         manifest: {
           name: 'VO2trofia',
           short_name: 'VO2trofia',
