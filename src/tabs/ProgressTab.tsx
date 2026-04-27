@@ -354,7 +354,7 @@ export const ProgressTab: React.FC = () => {
       <div className="bg-[var(--color-oled-card)] rounded-3xl p-6 border border-white/5 shadow-lg shadow-black/50 relative overflow-hidden">
         {savedSuccess && (
           <div className="absolute inset-0 z-20 flex items-center justify-center bg-[var(--color-neon-purple)]/20 backdrop-blur-md animate-in fade-in duration-300">
-            <div className="bg-[var(--color-oled-black)] border border-[var(--color-neon-purple)] text-[var(--color-neon-purple-light)] px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-widest shadow-[0_0_20px_rgba(255,20,147,0.4)]">
+            <div className="bg-[var(--color-oled-black)] border border-[var(--color-neon-purple)] text-[var(--color-neon-purple-light)] px-5 py-2.5 rounded-full font-bold text-xs uppercase tracking-widest shadow-[0_0_20px_rgba(102,0,204,0.4)]">
               Registro Sincronizado
             </div>
           </div>
@@ -412,7 +412,7 @@ export const ProgressTab: React.FC = () => {
           
           <button 
             type="submit"
-            className="w-full mt-3 py-4 bg-[var(--color-neon-purple-light)] hover:bg-[var(--color-neon-purple)] shadow-[0_4px_14px_0_rgba(255,105,180,0.39)] uppercase tracking-widest text-white font-extrabold text-[11px] rounded-xl flex items-center justify-center transition-all active:scale-95"
+            className="w-full mt-3 py-4 bg-[var(--color-neon-purple-light)] hover:bg-[var(--color-neon-purple)] shadow-[0_4px_14px_0_rgba(140,0,255,0.39)] uppercase tracking-widest text-white font-extrabold text-[11px] rounded-xl flex items-center justify-center transition-all active:scale-95"
           >
             <Save size={16} className="mr-2" />
             Guardar Datos

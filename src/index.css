@@ -6,8 +6,8 @@
   --color-oled-bg: #0a0a0a;
   --color-oled-card: #151515;
   --color-oled-card-hover: #1e1e1e;
-  --color-neon-purple: #ff1493; /* DeepPink */
-  --color-neon-purple-light: #ff69b4; /* HotPink */
+  --color-neon-purple: #6600cc;
+  --color-neon-purple-light: #8c00ff;
   --color-neon-green: #00FF00;
   --color-neon-green-alt: #39FF14;
   --color-text-main: #FFFFFF;
@@ -43,7 +43,7 @@ body.light-mode {
   --color-oled-card-hover: #e5e5e5;
   --color-text-main: #111111;
   --color-text-muted: #666666;
-  --color-neon-purple: #c1121f; /* Darker pink-red for contrast */
+  --color-neon-purple: #4d0099; /* Darker bluish-purple for contrast */
   --color-neon-green: #15803d; /* Darker green for contrast */
 }
 
@@ -63,5 +63,5 @@ body.light-mode {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 105, 180, 0.5); /* var(--color-neon-purple-light) */
+  background: rgba(140, 0, 255, 0.5); /* var(--color-neon-purple-light) */
 }
