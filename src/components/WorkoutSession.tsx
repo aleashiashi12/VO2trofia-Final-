@@ -489,7 +489,7 @@ export const WorkoutSession: React.FC<WorkoutSessionProps> = ({ title, exercises
                   );
                 } else {
                   return (
-                    <div className="bg-[var(--color-neon-purple)]/5 border border-[var(--color-neon-purple)]/30 rounded-2xl p-4 mb-4 text-center shadow-[0_0_20px_rgba(102,0,204,0.1)] w-full">
+                    <div className="bg-[var(--color-neon-purple)]/5 border border-[var(--color-neon-purple)]/30 rounded-2xl p-4 mb-4 text-center shadow-[0_0_20px_rgba(255,20,147,0.1)] w-full">
                        <div className="text-[var(--color-neon-purple-light)] font-bold text-[10px] uppercase tracking-[0.2em] mb-2 flex items-center justify-center gap-1.5 flex-wrap">
                           <Zap size={14} className="animate-pulse" /> RENDIMIENTO MANTENIDO
                        </div>
@@ -675,7 +675,7 @@ export const WorkoutSession: React.FC<WorkoutSessionProps> = ({ title, exercises
               <div className="flex gap-2 mt-3 animate-in fade-in slide-in-from-top-1">
                 <button
                   onClick={() => setRepsConfirmed(true)}
-                  className="flex-1 py-3 bg-[var(--color-neon-purple-light)] hover:bg-[var(--color-neon-purple)] text-white text-sm font-bold uppercase tracking-widest rounded-xl shadow-[0_4px_14px_0_rgba(140,0,255,0.39)] transition-all active:scale-95"
+                  className="flex-1 py-3 bg-[var(--color-neon-purple-light)] hover:bg-[var(--color-neon-purple)] text-white text-sm font-bold uppercase tracking-widest rounded-xl shadow-[0_4px_14px_0_rgba(255,105,180,0.39)] transition-all active:scale-95"
                 >
                   <Check className="inline-block flex-shrink-0" size={16} /> Confirmar {currentReps}
                 </button>

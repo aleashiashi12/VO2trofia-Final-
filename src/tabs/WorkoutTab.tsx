@@ -170,7 +170,7 @@ export const WorkoutTab: React.FC = () => {
             className={clsx(
               "px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all duration-300",
               currentDay === day.id 
-                ? "bg-[var(--color-neon-purple-light)] text-white shadow-[0_0_15px_rgba(140,0,255,0.5)] transform scale-[1.02]" 
+                ? "bg-[var(--color-neon-purple-light)] text-white shadow-[0_0_15px_rgba(255,105,180,0.5)] transform scale-[1.02]" 
                 : "bg-[var(--color-oled-card)] border border-white/5 text-[var(--color-text-muted)] hover:text-white hover:bg-white/5"
             )}
           >

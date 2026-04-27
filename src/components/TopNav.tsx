@@ -45,7 +45,7 @@ export const TopNav: React.FC<TopNavProps> = ({ activeTab, onChange }) => {
               {isActive && (
                 <motion.div 
                   layoutId="activeTabIndicator"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--color-neon-purple-light)] shadow-[0_0_8px_rgba(140,0,255,0.8)]" 
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--color-neon-purple-light)] shadow-[0_0_8px_rgba(255,105,180,0.8)]" 
                 />
               )}
             </button>
