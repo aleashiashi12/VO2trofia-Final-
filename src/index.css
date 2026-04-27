@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-oled-black: #000000;
+  --color-oled-bg: #0a0a0a;
+  --color-oled-card: #151515;
+  --color-oled-card-hover: #1e1e1e;
+  --color-neon-purple: #6600cc;
+  --color-neon-purple-light: #8c00ff;
+  --color-neon-green: #00FF00;
+  --color-neon-green-alt: #39FF14;
+  --color-text-main: #FFFFFF;
+  --color-text-muted: #A0A0A0;
+  --color-surface: #111111;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+* {
+  overscroll-behavior-y: none;
+}
+
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 1rem);
+}
+
+html, body {
+  background-color: var(--color-oled-black);
+  color: var(--color-text-main);
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  overscroll-behavior-y: none;
+  height: 100%;
+}
+
+body.light-mode {
+  --color-oled-black: #f5f5f5;
+  --color-oled-bg: #ffffff;
+  --color-oled-card: #ffffff;
+  --color-oled-card-hover: #e5e5e5;
+  --color-text-main: #111111;
+  --color-text-muted: #666666;
+  --color-neon-purple: #4d0099; /* Darker bluish-purple for contrast */
+  --color-neon-green: #15803d; /* Darker green for contrast */
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-oled-card-hover);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(140, 0, 255, 0.5); /* var(--color-neon-purple-light) */
+}

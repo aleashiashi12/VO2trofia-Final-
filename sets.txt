@@ -1,0 +1,9 @@
+176:          { id: 'et-4', label: 'Serie 4', repsGoal: '12-15 Reps', restTime: 90, isExtra: true }
+197:          { id: 'fp-4', label: 'Serie 4', repsGoal: '5-8 Reps', restTime: 180, isExtra: true }
+209:          { id: 'rb-4', label: 'Serie 4', repsGoal: '6-8 Reps', restTime: 180, isExtra: true }
+232:          { id: 'cb-4', label: 'Serie 4', repsGoal: '8-12 Reps', restTime: 120, isExtra: true }
+260:          { id: 'sbu-4', label: 'Serie 4', repsGoal: '8-12 Reps', restTime: 120, isExtra: true }
+294:          { id: 'ets-4', label: 'Serie 4', repsGoal: '15-20 Reps', restTime: 90, isExtra: true }
+315:          { id: 'pse-4', label: 'Serie 4', repsGoal: '8-12 Reps', restTime: 120, isExtra: true }
+327:          { id: 'ru-4', label: 'Serie 4', repsGoal: '10-12 Reps', restTime: 90, isExtra: true }
+339:          { id: 'el-4', label: 'Serie 4', repsGoal: '15-20 Reps', restTime: 90, isExtra: true }
