@@ -14,7 +14,7 @@ export default defineConfig(({mode}) => {
       VitePWA({
         registerType: 'autoUpdate',
         injectRegister: 'auto',
-        includeAssets: ['pwa-icon.svg'],
+        includeAssets: ['pwa-icon.png'],
         manifest: {
           name: 'VO2trofia',
           short_name: 'VO2trofia',
@@ -24,19 +24,19 @@ export default defineConfig(({mode}) => {
           display: 'standalone',
           icons: [
             {
-              src: 'pwa-icon.svg',
+              src: 'pwa-icon.png',
               sizes: '192x192',
-              type: 'image/svg+xml'
+              type: 'image/png'
             },
             {
-              src: 'pwa-icon.svg',
+              src: 'pwa-icon.png',
               sizes: '512x512',
-              type: 'image/svg+xml'
+              type: 'image/png'
             },
             {
-              src: 'pwa-icon.svg',
+              src: 'pwa-icon.png',
               sizes: '512x512',
-              type: 'image/svg+xml',
+              type: 'image/png',
               purpose: 'any maskable'
             }
           ]
