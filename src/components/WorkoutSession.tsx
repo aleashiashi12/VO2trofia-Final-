@@ -74,6 +74,28 @@ export const WorkoutSession: React.FC<WorkoutSessionProps> = ({ title, exercises
   const [sessionLogs, setSessionLogs] = useState<{ exerciseId: string, isWarmup: boolean, isExtra: boolean, reps: number, weight: number }[]>([]);
 
   useEffect(() => {
+    // Intercept hardware back button to prevent accidental app exit
+    window.history.pushState({ session: 'active' }, '');
+
+    const handlePopState = (e: PopStateEvent) => {
+      e.preventDefault();
+      setShowExitConfirm(true);
+      // Pushing state again so next back press gets caught while dialog is open
+      window.history.pushState({ session: 'active' }, '');
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      // Clean up the history state if it exists
+      if (window.history.state && window.history.state.session === 'active') {
+        window.history.back();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     setShowInfo(false);
   }, [currentStepIndex]);
 

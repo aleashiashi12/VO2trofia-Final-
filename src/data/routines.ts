@@ -101,7 +101,7 @@ export const ROUTINES: RoutineDefinition[] = [
         name: 'Remo Renegado Ligero',
         type: 'time',
         info: 'Objetivo: Tracción horizontal pesada bajo fatiga y resistencia anti-rotacional.\\n\\nEjecución:\\n- Plancha alta apoyado sobre mancuernas, pies anchos.\\n- Jala una mancuerna hacia tu cadera.\\n- Baja lentamente y repite con el otro brazo.\\n\\nPunto Clave: LA CADERA NO GIRE al levantar el brazo.',
-        sets: [{ id: 'w-rr-1', label: '1 Serie', timeGoal: 60, restTime: 0 }]
+        sets: [{ id: 'w-rr-1', label: '1 Serie', timeGoal: 60, restTime: 90 }]
       }
     ],
     exercises: [

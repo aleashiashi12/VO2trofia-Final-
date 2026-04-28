@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StoreProvider } from './store';
 import { TopNav } from './components/TopNav';
 import { WorkoutTab } from './tabs/WorkoutTab';
@@ -7,7 +7,26 @@ import { SettingsTab } from './tabs/SettingsTab';
 import { AnimatePresence, motion } from 'motion/react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'workout' | 'progress' | 'settings'>('workout');
+  const [activeTab, setActiveTabState] = useState<'workout' | 'progress' | 'settings'>('workout');
+
+  useEffect(() => {
+    window.history.replaceState({ tab: 'workout' }, '');
+
+    const handlePopState = (e: PopStateEvent) => {
+      if (e.state && e.state.tab) {
+        setActiveTabState(e.state.tab);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const setActiveTab = (tab: 'workout' | 'progress' | 'settings') => {
+    if (tab === activeTab) return;
+    window.history.pushState({ tab }, '');
+    setActiveTabState(tab);
+  };
 
   return (
     <StoreProvider>
