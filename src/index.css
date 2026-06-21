@@ -19,10 +19,6 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
-* {
-  overscroll-behavior-y: none;
-}
-
 @utility pb-safe {
   padding-bottom: env(safe-area-inset-bottom, 1rem);
 }

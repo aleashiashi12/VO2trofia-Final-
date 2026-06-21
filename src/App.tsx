@@ -40,7 +40,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.98 }}
               transition={{ duration: 0.25, ease: "easeInOut" }}
-              className="absolute inset-0 overflow-y-auto overflow-x-hidden"
+              className="absolute inset-0 overflow-y-auto overflow-x-clip"
             >
               {activeTab === 'workout' && <WorkoutTab />}
               {activeTab === 'progress' && <ProgressTab />}

@@ -238,23 +238,13 @@ export const WorkoutTab: React.FC = () => {
           </div>
         )}
 
-        {routine.isRestDay && (
-          <div className="bg-[var(--color-oled-card)] border border-[var(--color-oled-card-hover)] rounded-xl p-4 mt-4 flex items-start">
-            <div className="w-10 h-10 rounded-full bg-blue-900/30 flex items-center justify-center mr-4 shrink-0">
-              <PersonStanding className="text-blue-400" size={20} />
-            </div>
-            <div>
-              <h4 className="font-bold mb-1">Descanso Activo (Pasos)</h4>
-              <p className="text-sm text-[var(--color-text-muted)]">{routine.restDayMessage}</p>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Exercise List */}
       {!routine.isRestDay && routine.exercises && (
         <div className="space-y-3">
           {routine.exercises.map((ex, idx) => (
+
             <div key={ex.id} className="bg-[var(--color-oled-card)] border border-white/5 hover:border-white/10 transition-colors rounded-2xl p-4 flex items-center shadow-md">
               <div className={clsx(
                 "w-12 h-12 rounded-full flex items-center justify-center mr-4 shrink-0 shadow-inner",
@@ -308,6 +298,18 @@ export const WorkoutTab: React.FC = () => {
               </button>
             </div>
           ))}
+        </div>
+      )}
+
+      {routine.restDayMessage && (
+        <div className="bg-[var(--color-oled-card)] border border-[var(--color-oled-card-hover)] rounded-xl p-4 mt-4 flex items-start">
+          <div className="w-10 h-10 rounded-full bg-blue-900/30 flex items-center justify-center mr-4 shrink-0">
+            <PersonStanding className="text-blue-400" size={20} />
+          </div>
+          <div>
+            <h4 className="font-bold mb-1">Descanso Activo (Pasos)</h4>
+            <p className="text-sm text-[var(--color-text-muted)]">{routine.restDayMessage}</p>
+          </div>
         </div>
       )}
 

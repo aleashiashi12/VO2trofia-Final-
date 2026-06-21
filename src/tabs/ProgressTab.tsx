@@ -250,7 +250,7 @@ export const ProgressTab: React.FC = () => {
         
         {selectedHistoryExercise ? (
           historyData.length > 0 ? (
-            <div className="h-56 w-full mt-4">
+            <div className="h-56 w-full mt-4 touch-pan-y" style={{ touchAction: 'pan-y' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={historyData}>
                   <defs>
@@ -315,7 +315,7 @@ export const ProgressTab: React.FC = () => {
           <h3 className="font-bold text-sm tracking-wide uppercase text-white">Volumen Reciente</h3>
         </div>
         
-        <div className="h-48 w-full">
+        <div className="h-48 w-full touch-pan-y" style={{ touchAction: 'pan-y' }}>
           {volumeData.length > 0 ? (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={volumeData}>
@@ -328,7 +328,7 @@ export const ProgressTab: React.FC = () => {
                   dy={10}
                 />
                 <Tooltip 
-                  cursor={{ fill: 'var(--color-surface)' }}
+                  cursor={{ fill: 'transparent' }}
                   contentStyle={{ backgroundColor: 'var(--color-oled-black)', border: '1px solid var(--color-oled-card-hover)', borderRadius: '12px', fontSize: '12px' }}
                   itemStyle={{ color: 'white', fontWeight: 'bold' }}
                 />

@@ -74,24 +74,27 @@ export const WorkoutSession: React.FC<WorkoutSessionProps> = ({ title, exercises
   const [sessionLogs, setSessionLogs] = useState<{ exerciseId: string, isWarmup: boolean, isExtra: boolean, reps: number, weight: number }[]>([]);
 
   useEffect(() => {
-    // Intercept hardware back button to prevent accidental app exit
-    window.history.pushState({ session: 'active' }, '');
-
     const handlePopState = (e: PopStateEvent) => {
       e.preventDefault();
+      // Only show confirm if it's the active session state popping
+      if (e.state && e.state.session === 'active') {
+        // do nothing, we just entered? Wait, when we enter, state is active. When we pop, state is what was BEFORE active.
+        // Wait, if state BEFORE active was { tab: 'workout' }, e.state is { tab: 'workout' }.
+      }
       setShowExitConfirm(true);
       // Pushing state again so next back press gets caught while dialog is open
       window.history.pushState({ session: 'active' }, '');
     };
 
     window.addEventListener('popstate', handlePopState);
+    
+    // In strict mode, avoid creating multiple states
+    if (!window.history.state || window.history.state.session !== 'active') {
+      window.history.pushState({ session: 'active' }, '');
+    }
 
     return () => {
       window.removeEventListener('popstate', handlePopState);
-      // Clean up the history state if it exists
-      if (window.history.state && window.history.state.session === 'active') {
-        window.history.back();
-      }
     };
   }, []);
 
@@ -158,21 +161,28 @@ export const WorkoutSession: React.FC<WorkoutSessionProps> = ({ title, exercises
         : currentStep.exercise.id;
 
       // Find previous session data (targetLog)
-      const effectiveLogs = storeState.logs.filter(l => l.exerciseId === actualExerciseId && !l.isWarmup);
+      const allLogsThisExercise = storeState.logs.filter(l => l.exerciseId === actualExerciseId);
+      const effectiveLogs = allLogsThisExercise.filter(l => !l.isWarmup);
+      
       let targetLog = null;
+      let lastSessionDateStr = null;
       if (effectiveLogs.length > 0) {
         const lastDateStr = effectiveLogs[effectiveLogs.length - 1].date;
-        const lastDate = new Date(lastDateStr).toDateString();
-        const lastSessionLogs = effectiveLogs.filter(l => new Date(l.date).toDateString() === lastDate);
+        lastSessionDateStr = new Date(lastDateStr).toDateString();
+        const lastSessionLogs = effectiveLogs.filter(l => new Date(l.date).toDateString() === lastSessionDateStr);
         targetLog = lastSessionLogs[0];
+      } else if (allLogsThisExercise.length > 0) {
+        lastSessionDateStr = new Date(allLogsThisExercise[allLogsThisExercise.length - 1].date).toDateString();
       }
 
       // Find current session effective logs
       const currentExerciseLogs = sessionLogs.filter(l => l.exerciseId === actualExerciseId && !l.isWarmup);
 
       if (isWarmup) {
+        let suggestedWeight = 0;
+        const indexToWarmups = steps.slice(0, currentStepIndex).filter(s => s.type === 'exercise' && s.exercise.id === currentStep.exercise.id && s.set.isWarmup).length;
+        
         if (targetLog && targetLog.weight > 0) {
-          const indexToWarmups = steps.slice(0, currentStepIndex).filter(s => s.type === 'exercise' && s.exercise.id === currentStep.exercise.id && s.set.isWarmup).length;
           const numWarmups = steps.filter(s => s.type === 'exercise' && s.exercise.id === currentStep.exercise.id && s.set.isWarmup).length;
           
           let percentage = 50;
@@ -181,14 +191,25 @@ export const WorkoutSession: React.FC<WorkoutSessionProps> = ({ title, exercises
           } else if (numWarmups === 2) {
             percentage = indexToWarmups === 0 ? 50 : 75;
           } else {
-            percentage = 40 + (20 * indexToWarmups);
+            percentage = 50 + (20 * indexToWarmups);
           }
           
-          const suggestedWeight = Math.round((targetLog.weight * percentage) / 100);
-          setCurrentWeight(suggestedWeight.toString());
-        } else {
-          setCurrentWeight('');
+          suggestedWeight = Math.round((targetLog.weight * percentage) / 100);
         }
+
+        let prefilledWeight = '';
+        if (lastSessionDateStr) {
+           const lastSessionWarmups = allLogsThisExercise.filter(l => l.isWarmup && new Date(l.date).toDateString() === lastSessionDateStr);
+           if (indexToWarmups < lastSessionWarmups.length && lastSessionWarmups[indexToWarmups].weight > 0) {
+              prefilledWeight = lastSessionWarmups[indexToWarmups].weight.toString();
+           } else if (suggestedWeight > 0) {
+              prefilledWeight = suggestedWeight.toString();
+           }
+        } else if (suggestedWeight > 0) {
+           prefilledWeight = suggestedWeight.toString();
+        }
+
+        setCurrentWeight(prefilledWeight);
         
         // Auto-set reps from repsGoal and disable input
         if (currentStep.set.repsGoal) {
@@ -246,6 +267,13 @@ export const WorkoutSession: React.FC<WorkoutSessionProps> = ({ title, exercises
 
     return () => clearInterval(interval);
   }, [timeLeft, isPaused, currentStepIndex]);
+
+  const finishSession = () => {
+    if (window.history.state && window.history.state.session === 'active') {
+      window.history.back();
+    }
+    onComplete();
+  };
 
   const handleNext = (skipLog: boolean = false) => {
     if (!skipLog && currentStep && currentStep.type === 'exercise') {
@@ -312,7 +340,7 @@ export const WorkoutSession: React.FC<WorkoutSessionProps> = ({ title, exercises
               nextIdx = nextExerciseStepIndex;
               targetStep = steps[nextIdx];
             } else {
-              onComplete();
+              finishSession();
               return;
             }
           }
@@ -323,7 +351,7 @@ export const WorkoutSession: React.FC<WorkoutSessionProps> = ({ title, exercises
       setTimeLeft(targetStep.duration || null);
       setIsPaused(false);
     } else {
-      onComplete();
+      finishSession();
     }
   };
 
@@ -346,7 +374,7 @@ export const WorkoutSession: React.FC<WorkoutSessionProps> = ({ title, exercises
       setTimeLeft(nextStep.duration || null);
       setIsPaused(false);
     } else {
-      onComplete();
+      finishSession();
     }
   };
 
@@ -415,7 +443,7 @@ export const WorkoutSession: React.FC<WorkoutSessionProps> = ({ title, exercises
   }
 
   return (
-    <div className="fixed inset-0 bg-black z-50 flex flex-col">
+    <div className="fixed inset-0 bg-black z-50 flex flex-col overflow-hidden">
       {/* Header */}
       <div className="flex justify-between items-center p-4 border-b border-[var(--color-oled-card-hover)] relative">
         <h2 className="font-bold text-lg">{title}</h2>
@@ -432,7 +460,7 @@ export const WorkoutSession: React.FC<WorkoutSessionProps> = ({ title, exercises
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto relative flex flex-col p-5">
+      <div className="flex-1 overflow-y-auto overflow-x-clip relative flex flex-col p-5">
         <div className="absolute top-[-50%] left-1/2 translate-x-[-50%] w-[500px] h-[500px] bg-[var(--color-neon-purple)]/5 blur-[120px] pointer-events-none rounded-full" />
         <div className="absolute top-4 right-4 z-10">
           <button onClick={() => setShowSkipConfirm(true)} className="text-[var(--color-text-muted)] flex items-center text-xs font-bold uppercase tracking-wider bg-black/50 px-3 py-1.5 rounded-full backdrop-blur-sm">
@@ -748,7 +776,7 @@ export const WorkoutSession: React.FC<WorkoutSessionProps> = ({ title, exercises
                  } else if (numWarmups === 2) {
                     percentage = indexToWarmups === 0 ? 50 : 75;
                  } else {
-                    percentage = 40 + (20 * indexToWarmups);
+                    percentage = 50 + (20 * indexToWarmups);
                  }
                  
                  const suggestedWeight = Math.round((targetLog.weight * percentage) / 100);
@@ -897,7 +925,10 @@ export const WorkoutSession: React.FC<WorkoutSessionProps> = ({ title, exercises
             </p>
             <div className="flex flex-col gap-3">
               <button 
-                onClick={onClose}
+                onClick={() => {
+                  window.history.back();
+                  onClose();
+                }}
                 className="w-full py-4 rounded-xl font-black text-sm uppercase tracking-widest bg-red-600 hover:bg-red-500 text-white transition-colors"
               >
                 Sí, Cancelar Todo

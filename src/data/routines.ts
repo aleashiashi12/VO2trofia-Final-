@@ -188,6 +188,7 @@ export const ROUTINES: RoutineDefinition[] = [
     dayOfWeek: 3,
     title: 'Torso A - Fuerza Base y Empuje',
     isRestDay: false,
+    restDayMessage: 'Día de Recuperación Activa. Meta: 10k-15k pasos LISS.',
     warmup: STRENGTH_WARMUP,
     exercises: [
       {
@@ -314,6 +315,7 @@ export const ROUTINES: RoutineDefinition[] = [
     dayOfWeek: 6,
     title: 'Torso B - Hipertrofia Aislada',
     isRestDay: false,
+    restDayMessage: 'Día de Recuperación Activa. Meta: 10k-15k pasos LISS.',
     warmup: STRENGTH_WARMUP,
     exercises: [
       {
